@@ -1,0 +1,37 @@
+// --- Environment Attributes
+    // XACML
+    +environment-current-time("1100").
+    +environment-current-date("20250123").
+    +environment-current-datetime().
+    // RBAC
+    +environment-role-id("researcher").
+    +environment-role-id("marketeer").
+    +environment-role-id("doctor").
+    +environment-role-id("medical-staff").
+    +environment-role-id("virologist").
+    +environment-role-parent("virologist", "doctor").
+    +environment-role-parent("doctor", "medical-staff").
+    // PBAC
+    +environment-purpose("research").
+    +environment-purpose("marketing").
+    +environment-purpose("treatment").
+    // GDPR-BAC
+    +environment-legal-basis("consent").
+    +environment-legal-basis("contract").
+    +environment-legal-basis("legal-obligation").
+    +environment-legal-basis("vital-interest").
+    +environment-legal-basis("public-interest").
+    +environment-legal-basis("legitimate-interest").
+
+// --- Action Attributes (Possible Actions)
+    +action-action-id("read").
+    +action-action-id("write").
+
+// --- Subject Attributes
+    +subject-subject-id("dr.smith").
+    +subject-role("dr.smith", "virologist").
+
+// --- Resource Attributes
+    +resource-resource-id("file://storage.hartmanclinics.nl/records/patient0.xml").
+    +resource-intended-purpose-legal-basis("file://storage.hartmanclinics.nl/records/patient0.xml", intended-purpose-legal-basis("treatment", "vital-interest")).
+    +resource-subject("file://storage.hartmanclinics.nl/records/patient0.xml", "patient0").

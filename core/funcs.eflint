@@ -1,0 +1,47 @@
+// -- [XACML Policy Rule Simulation Functions]
+//    These functions simulate a subset of XACML rules, interpreted for its specific use-case.
+
+// --- RBAC
+
+    // Internal Variables
+    Fact required-role-id Identified by String.
+
+    Fact subject-has-explicit-role Identified by subject-subject-id * environment-role-id
+        Holds when (
+            Exists subject-role:
+                (subject-role(subject-subject-id, environment-role-id))
+        ).
+
+    Fact subject-has-inherited-role Identified by subject-subject-id * environment-role-id
+        Derived from (
+            Foreach subject-subject-id, parent-role:
+            subject-has-inherited-role(subject-subject-id, parent-role)
+            When (Exists child-role:
+                (environment-role-parent(child-role, parent-role) && (
+                    subject-has-explicit-role(subject-subject-id, child-role)
+                    || subject-has-inherited-role(subject-subject-id, child-role)
+                ))
+            )
+        ).
+
+    Fact subject-has-role Identified by subject-subject-id * environment-role-id
+        Holds when (
+            Exists subject-role:
+                (subject-has-explicit-role(subject-subject-id, environment-role-id) || subject-has-inherited-role(subject-subject-id, environment-role-id))
+            ).
+
+    Fact subject-has-required-role Identified by subject-subject-id * required-role-id
+        Holds when (
+                Not(Exists required-role-id: required-role-id) || (Exists subject-role: subject-has-role(subject-subject-id, required-role-id))
+            ).
+
+//  --- Action
+
+    // Internal Variables
+    Fact required-action-id Identified by String.
+
+    // Rule
+    Fact action-is-allowed Identified by required-action-id
+        Holds when (
+                Not(Exists required-action-id: required-action-id) || (Exists action-action-id: required-action-id)
+            ).

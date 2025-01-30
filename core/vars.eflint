@@ -1,0 +1,43 @@
+// -- [Variables]
+
+// --- Array
+Fact key Identified by String.
+Fact value Identified by String.
+
+// --- XACML Attribute Categories
+Fact environment Identified by String.
+Fact subject Identified by String.
+Fact action Identified by String.
+Fact resource Identified by String.
+
+// --- Environment Attributes
+Fact environment-current-time Identified by String.
+Fact environment-current-date Identified by String.
+Fact environment-current-datetime Identified by environment-current-date * environment-current-time.
+Fact environment-role-id Identified by String.
+
+Placeholder child-role For environment-role-id.
+Placeholder parent-role For environment-role-id.
+Fact environment-role-parent Identified by child-role * parent-role.
+
+Fact environment-purpose Identified by String.
+Fact environment-legal-basis Identified by String.
+
+// --- Subject Attributes
+Fact subject-subject-id Identified by String.
+Fact subject-role Identified by subject-subject-id * environment-role-id.
+
+// --- Resource Attributes
+
+    // Definitions
+    Fact resource-resource-id Identified by String.
+
+    // Relations
+    Fact intended-purpose-legal-basis Identified by environment-purpose * environment-legal-basis.
+    Fact resource-intended-purpose-legal-basis Identified by resource-resource-id * intended-purpose-legal-basis.
+    Fact resource-subject Identified by resource-resource-id * subject-subject-id.
+
+// --- Action Attributes
+    
+    // Definitions
+    Fact action-action-id Identified by String.

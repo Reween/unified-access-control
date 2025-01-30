@@ -1,0 +1,8 @@
+Fact access-purpose-legal-basis Identified by environment-purpose * environment-legal-basis.
+Fact access-request Identified by subject-subject-id * resource-resource-id * action-action-id * access-purpose-legal-basis.
+
+Act request-access
+    Actor subject-subject-id
+    Related to resource-resource-id, action-action-id, access-purpose-legal-basis
+    Creates access-request(subject-subject-id, resource-resource-id, action-action-id, access-purpose-legal-basis)
+    Holds when True.

@@ -1,0 +1,14 @@
+// Policy: patient-dossiers.eflint
+// Description: Limit access to patient files.
+
+// Policy Rule 1: Check Intended Purpose Legal Base
+#require "../../pap/rules/check-iplb.eflint".
+
+// Policy Rule 2: Check Role
+#require "../../pap/rules/check-role.eflint".
++required-role-id("computer-science-student").
++required-role-id("computer-science-counsellor").
+
+// Policy Rule 3: Check Action
+#require "../../pap/rules/check-action.eflint".
++required-action-id("read").

@@ -1,0 +1,2 @@
+Extend Act request-access
+    Conditioned by subject-has-required-role(subject-subject-id, required-role-id).

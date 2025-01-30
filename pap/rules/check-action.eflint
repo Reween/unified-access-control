@@ -1,0 +1,2 @@
+Extend Act request-access
+    Conditioned by action-is-allowed(action-action-id).

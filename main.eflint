@@ -1,0 +1,7 @@
+// - [SPECIFICATION]
+#require "core/vars.eflint". // Prerequisite (Context) Variables
+#require "core/funcs.eflint". // XACML Policy Rule Simulation Functions
+#require "core/acts.eflint". // XACML PDP/PEP Simulation Requirements
+
+// - [SCENARIO]
+#require "scenarios/clinic/scenario.eflint". // Actual simulation scenario

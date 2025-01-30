@@ -1,0 +1,56 @@
+// --- Environment Attributes
+    // XACML
+    +environment-current-time("1651").
+    +environment-current-date("20250129").
+    +environment-current-datetime().
+    
+    // RBAC
+    +environment-role-id("science-staff").
+    +environment-role-id("computer-science-staff").
+    +environment-role-parent("computer-science-staff", "science-staff").
+
+    +environment-role-id("counsellor").
+    +environment-role-id("science-counsellor").
+    +environment-role-id("computer-science-counsellor").
+    +environment-role-parent("science-counesllor", "counesllor").
+    +environment-role-parent("science-counesllor", "science-staff").
+    +environment-role-parent("computer-science-counesllor", "science-counesllor").
+    
+    +environment-role-id("student").
+    +environment-role-id("science-student").
+    +environment-role-id("computer-science-student").
+    +environment-role-parent("computer-science-student", "science-student").
+    +environment-role-parent("science-student", "student").
+    
+    // PBAC
+    +environment-purpose("degree").
+    +environment-purpose("counselling").
+    +environment-purpose("teaching").
+    +environment-purpose("gdpr-compliance").
+    
+    // GDPR-BAC
+    +environment-legal-basis("consent").
+    +environment-legal-basis("contract").
+    +environment-legal-basis("legal-obligation").
+    +environment-legal-basis("vital-interest").
+    +environment-legal-basis("public-interest").
+    +environment-legal-basis("legitimate-interest").
+    +environment-legal-basis("gdpr-access-right").
+
+// --- Action Attributes (Possible Actions)
+    +action-action-id("read").
+    +action-action-id("write").
+
+// --- Subject Attributes
+    +subject-subject-id("s1234567").
+    +subject-subject-id("p1234567").
+    +subject-role("s1234567", "computer-science-student").
+    +subject-role("p1234567", "computer-science-counsellor").
+
+// --- Resource Attributes
+    +resource-resource-id("file://storage.testuniversity.nl/grades/s1234567.xml").
+    +resource-intended-purpose-legal-basis("file://storage.testuniversity.nl/grades/s1234567.xml", intended-purpose-legal-basis("teaching", "legal-obligation")).
+    +resource-intended-purpose-legal-basis("file://storage.testuniversity.nl/grades/s1234567.xml", intended-purpose-legal-basis("counselling", "legal-obligation")).
+    +resource-intended-purpose-legal-basis("file://storage.testuniversity.nl/grades/s1234567.xml", intended-purpose-legal-basis("degree", "legal-obligation")).
+    
+    +resource-subject("file://storage.testuniversity.nl/grades/s1234567.xml", "s1234567").

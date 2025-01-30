@@ -1,0 +1,30 @@
+// Scenario
+
+// -- PIP: Policy Information Point (Attribute Knowledge Base)
+#require "pip.eflint".
+
+// -- PAP: Policy Administration Point (Policy Database)
+#require "policy.eflint".
+
+// -- PDP: Policy Decision Point
+
+    // Test 1: Should Work.
+        ?Holds(request-access("dr.smith","file://storage.hartmanclinics.nl/records/patient0.xml","read",intended-purpose-legal-basis("treatment", "vital-interest"))).
+    
+    // Test 2: Should Fail. Disallowed user.
+        ?Holds(request-access("dr.doe","file://storage.hartmanclinics.nl/records/patient0.xml","read",intended-purpose-legal-basis("treatment", "vital-interest"))).
+
+    // Test 3: Should Fail. Disallowed action.
+        ?Holds(request-access("dr.smith","file://storage.hartmanclinics.nl/records/patient0.xml","write",intended-purpose-legal-basis("treatment", "vital-interest"))).
+    
+    // Test 4: Should Fail. Disallowed access-purpose.
+        ?Holds(request-access("dr.smith","file://storage.hartmanclinics.nl/records/patient0.xml","read",intended-purpose-legal-basis("marketing", "vital-interest"))).
+
+    // Test 5: Should Fail. Disallowed legal-base.
+        ?Holds(request-access("dr.smith","file://storage.hartmanclinics.nl/records/patient0.xml","read",intended-purpose-legal-basis("treatment", "legitimate-interest"))).
+
+    // Test 6: Should Fail. Disallowed access-purpose-legal-base.
+        ?Holds(request-access("dr.smith","file://storage.hartmanclinics.nl/records/patient0.xml","read",intended-purpose-legal-basis("marketing", "consent"))).
+    
+    // Test 7: Should Fail. Different file.
+        ?Holds(request-access("dr.smith","file://storage.hartmanclinics.nl/records/patient1.xml","read",intended-purpose-legal-basis("treatment", "vital-interest"))).

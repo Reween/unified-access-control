@@ -1,0 +1,55 @@
+// Scenario
+
+// -- PIP: Policy Information Point (Attribute Knowledge Base)
+#require "pip.eflint".
+
+// -- PAP: Policy Administration Point (Policy Database) 
+#require "policy.eflint".
+
+// -- PDP: Policy Decision Point
+
+    // STUDENT TEST
+    
+        // Student Test 1: Should Work. GDPR access right.
+            ?Holds(request-access("s1234567","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("", ""))).
+        
+        // Student Test 2: Should Work. Random access purpose.
+            ?Holds(request-access("s1234567","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("marketing", "vital-interest"))).
+
+        // Student Test 3: Should Work. Random legal-base.
+            ?Holds(request-access("s1234567","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("treatment", "legitimate-interest"))).
+
+        // Student Test 4: Should Work. Random access-purpose-legal-base.
+            ?Holds(request-access("s1234567","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("marketing", "consent"))).
+
+        // Student Test 5: Should Fail. Disallowed user.
+            ?Holds(request-access("s0000000","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("treatment", "vital-interest"))).
+
+        // Student Test 6: Should Fail. Disallowed action.
+            ?Holds(request-access("s1234567","file://storage.testuniversity.nl/grades/s1234567.xml","write",access-purpose-legal-basis("treatment", "vital-interest"))).
+        
+        // Student Test 7: Should Fail. Different file.
+            ?Holds(request-access("s1234567","file://storage.testuniversity.nl/grades/s1111111.xml","read",access-purpose-legal-basis("treatment", "vital-interest"))).
+    
+    // COUNSELLOR TEST
+
+        // Counsellor Test 1: Should Work.
+            ?Holds(request-access("p1234567","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("counselling", "legal-obligation"))).
+        
+        // Counsellor Test 2: Should Fail. Non-existent access purpose.
+            ?Holds(request-access("p1234567","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("test", "legal-obligation"))).
+
+        // Counsellor Test 3: Should Fail. Non-existent legal basis.
+            ?Holds(request-access("p1234567","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("counselling", "test"))).
+
+        // Counsellor Test 4: Should Fail. Non-existent access-purpose-legal-basis combination.
+            ?Holds(request-access("p1234567","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("test", "test"))).
+        
+        // Counesllor Test 5: Should Fail. Disallowed user.
+            ?Holds(request-access("p1111111","file://storage.testuniversity.nl/grades/s1234567.xml","read",access-purpose-legal-basis("counselling", "legal-obligation"))).
+        
+        // Counsellor Test 6: Should Fail. Disallowed action.
+            ?Holds(request-access("p1234567","file://storage.testuniversity.nl/grades/s1234567.xml","write",access-purpose-legal-basis("counselling", "legal-obligation"))).
+
+        // Counsellor Test 7: Should Fail. Disallowed file.
+            ?Holds(request-access("p1234567","file://storage.testuniversity.nl/grades/s1111111.xml","read",access-purpose-legal-basis("counselling", "legal-obligation"))).

@@ -1,0 +1,5 @@
+Extend Act request-access
+    Conditioned by (
+        (resource-intended-purpose-legal-basis(resource-resource-id, access-purpose-legal-basis)) ||
+        resource-subject(resource-resource-id,subject-subject-id)
+    ).
